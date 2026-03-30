@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# π¬ Chat App β Next.js + Supabase
 
-## Getting Started
+Aplicativo de chat em tempo real com autenticaΓ§Γ£o, salas por cΓ³digo e temas claro/escuro.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## π Stack
+- **Next.js 14** (App Router)
+- **Supabase** (Auth + Realtime + PostgreSQL)
+- **Tailwind CSS**
+- **Vercel** (Deploy)
+
+---
+
+## π Estrutura de Arquivos
+
+```
+chat-app/
+βββ app/
+β   βββ layout.tsx
+β   βββ page.tsx                  # Landing / Login
+β   βββ auth/
+β   β   βββ callback/route.ts     # OAuth callback
+β   βββ chat/
+β   β   βββ page.tsx              # Sala de chat
+β   βββ globals.css
+βββ components/
+β   βββ LoginForm.tsx
+β   βββ JoinRoomForm.tsx
+β   βββ ChatRoom.tsx
+β   βββ Message.tsx
+β   βββ SettingsMenu.tsx
+β   βββ ThemeProvider.tsx
+βββ lib/
+β   βββ supabase/
+β   β   βββ client.ts
+β   β   βββ server.ts
+β   βββ hooks/
+β       βββ useChat.ts
+β       βββ useTheme.ts
+βββ middleware.ts
+βββ .env.local.example
+βββ supabase/
+    βββ schema.sql
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## βοΈ Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Clone e instale dependΓͺncias
 
-## Learn More
+```bash
+npx create-next-app@latest chat-app --typescript --tailwind --app
+cd chat-app
+npm install @supabase/supabase-js @supabase/ssr lucide-react
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Configure o Supabase
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Crie um projeto em [supabase.com](https://supabase.com)
+2. VΓ‘ em **SQL Editor** e rode o conteΓΊdo de `supabase/schema.sql`
+3. Em **Authentication > Providers**, habilite Email
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. VariΓ‘veis de ambiente
 
-## Deploy on Vercel
+Copie `.env.local.example` para `.env.local` e preencha:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Deploy no Vercel
+
+```bash
+npm install -g vercel
+vercel
+```
+
+Adicione as mesmas variΓ‘veis em **Vercel > Project > Settings > Environment Variables**.
+
+---
+
+## ποΈ Schema SQL (Supabase)
+
+Execute em **SQL Editor** no Supabase:
+
+```sql
+-- Ver arquivo supabase/schema.sql
+```
+
+---
+
+## β¨ Funcionalidades
+
+- β Login/Signup com email e senha
+- β Entrar em sala por cΓ³digo
+- β Criar sala com cΓ³digo personalizado
+- β Chat em tempo real (Supabase Realtime)
+- β Tema claro/escuro
+- β HistΓ³rico de mensagens
+- β Menu de configuraΓ§Γ΅es
+- β Logout

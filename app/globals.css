@@ -1,26 +1,106 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ── Fonts ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Light Theme ── */
+:root,
+[data-theme='light'] {
+  --bg: #f0ede8;
+  --bg-card: #faf8f5;
+  --bg-input: #ffffff;
+  --bg-hover: #ede9e3;
+  --border: #ddd8d0;
+  --text-primary: #1a1714;
+  --text-secondary: #6b6460;
+  --text-muted: #9e9891;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-light: #eef2ff;
+  --accent-text: #312e81;
+  --bubble-own: #4f46e5;
+  --bubble-own-text: #ffffff;
+  --bubble-other: #ffffff;
+  --bubble-other-text: #1a1714;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Dark Theme ── */
+[data-theme='dark'] {
+  --bg: #0f0e0d;
+  --bg-card: #1a1917;
+  --bg-input: #242220;
+  --bg-hover: #242220;
+  --border: #2e2b28;
+  --text-primary: #f0ede8;
+  --text-secondary: #a09990;
+  --text-muted: #6b6460;
+  --accent: #7c6ef7;
+  --accent-hover: #6c5ef0;
+  --accent-light: #1e1a3a;
+  --accent-text: #c4baff;
+  --bubble-own: #5b4ff0;
+  --bubble-own-text: #ffffff;
+  --bubble-other: #242220;
+  --bubble-other-text: #f0ede8;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* ── Base ── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
 }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.animate-fade-up { animation: fadeUp 0.4s ease forwards; }
+.animate-fade-in { animation: fadeIn 0.3s ease forwards; }
+.animate-slide-in { animation: slideIn 0.25s ease forwards; }
